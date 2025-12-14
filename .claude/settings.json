@@ -110,7 +110,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "$HOME/.claude/hooks/session-init.sh",
+            "command": ".claude/hooks/session-init.sh",
             "timeout": 5000
           }
         ]
@@ -122,7 +122,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "$HOME/.claude/hooks/pre-deploy.sh",
+            "command": ".claude/hooks/pre-deploy.sh",
             "timeout": 10000
           }
         ]
@@ -132,7 +132,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "$HOME/.claude/hooks/protect-critical.sh",
+            "command": ".claude/hooks/protect-critical.sh",
             "timeout": 5000
           }
         ]
@@ -144,7 +144,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "$HOME/.claude/hooks/audit-log.sh",
+            "command": ".claude/hooks/audit-log.sh",
             "timeout": 5000
           }
         ]
@@ -153,6 +153,6 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "$HOME/.claude/statusline-vps.sh"
+    "command": ".claude/statusline-vps.sh"
   }
 }
