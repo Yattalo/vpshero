@@ -1,0 +1,247 @@
+#===============================================================================
+# VPSHero - Starship Configuration
+# DevOps-Optimized Prompt
+#===============================================================================
+
+# Timeout per comandi (ms)
+command_timeout = 1000
+
+# Formato generale
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_status\
+$docker_context\
+$nodejs\
+$python\
+$golang\
+$rust\
+$package\
+$cmd_duration\
+$line_break\
+$character"""
+
+# Right prompt (status e time)
+right_format = """$status$time"""
+
+#===============================================================================
+# CORE MODULES
+#===============================================================================
+
+[username]
+style_user = "bold green"
+style_root = "bold red"
+format = "[$user]($style)"
+disabled = false
+show_always = true
+
+[hostname]
+ssh_only = false
+format = "[@$hostname](bold blue) "
+disabled = false
+
+[directory]
+style = "bold cyan"
+format = "[$path]($style)[$read_only]($read_only_style) "
+truncation_length = 3
+truncate_to_repo = true
+read_only = " "
+read_only_style = "red"
+
+[character]
+success_symbol = "[>](bold green)"
+error_symbol = "[>](bold red)"
+vimcmd_symbol = "[<](bold green)"
+
+[line_break]
+disabled = false
+
+#===============================================================================
+# GIT
+#===============================================================================
+
+[git_branch]
+symbol = " "
+style = "bold purple"
+format = "on [$symbol$branch(:$remote_branch)]($style) "
+truncation_length = 20
+truncation_symbol = "..."
+
+[git_status]
+style = "bold yellow"
+format = '([$all_status$ahead_behind]($style))'
+conflicted = ""
+ahead = "${count}"
+behind = "${count}"
+diverged = "${ahead_count}${behind_count}"
+up_to_date = ""
+untracked = "?${count}"
+stashed = ""
+modified = "!${count}"
+staged = "+${count}"
+renamed = "~${count}"
+deleted = "${count}"
+
+[git_commit]
+commit_hash_length = 7
+tag_symbol = " "
+style = "bold green"
+format = '[\($hash$tag\)]($style) '
+only_detached = true
+
+[git_state]
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+style = "bold yellow"
+
+#===============================================================================
+# DOCKER
+#===============================================================================
+
+[docker_context]
+symbol = " "
+style = "bold blue"
+format = "via [$symbol$context]($style) "
+only_with_files = true
+disabled = false
+detect_files = ["docker-compose.yml", "docker-compose.yaml", "Dockerfile", "compose.yml", "compose.yaml"]
+
+[container]
+symbol = ""
+style = "bold red"
+format = '[$symbol \[$name\]]($style) '
+disabled = false
+
+#===============================================================================
+# LANGUAGES
+#===============================================================================
+
+[nodejs]
+symbol = " "
+style = "bold green"
+format = "via [$symbol($version )]($style)"
+detect_files = ["package.json", ".node-version", ".nvmrc"]
+detect_folders = ["node_modules"]
+
+[python]
+symbol = " "
+style = "bold yellow"
+format = 'via [${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+detect_files = ["requirements.txt", "pyproject.toml", "Pipfile", "setup.py", "__init__.py"]
+
+[golang]
+symbol = " "
+style = "bold cyan"
+format = "via [$symbol($version )]($style)"
+detect_files = ["go.mod", "go.sum", "go.work", "glide.yaml", "Gopkg.yml", "Gopkg.lock", ".go-version"]
+
+[rust]
+symbol = " "
+style = "bold red"
+format = "via [$symbol($version )]($style)"
+
+#===============================================================================
+# PACKAGE
+#===============================================================================
+
+[package]
+symbol = " "
+style = "bold 208"
+format = "is [$symbol$version]($style) "
+display_private = false
+disabled = false
+
+#===============================================================================
+# EXECUTION
+#===============================================================================
+
+[cmd_duration]
+min_time = 2000  # 2 secondi
+style = "bold yellow"
+format = "took [$duration]($style) "
+show_milliseconds = false
+show_notifications = false
+
+[status]
+style = "bold red"
+symbol = ""
+success_symbol = ""
+format = '[$symbol$common_meaning$signal_name$maybe_int]($style) '
+map_symbol = true
+disabled = false
+
+#===============================================================================
+# TIME
+#===============================================================================
+
+[time]
+disabled = false
+format = '[$time]($style) '
+style = "bold dimmed white"
+time_format = "%H:%M"
+utc_time_offset = "local"
+
+#===============================================================================
+# SYSTEM INFO (VPS-SPECIFIC)
+#===============================================================================
+
+[memory_usage]
+disabled = true  # Abilitare se serve
+threshold = 75
+symbol = " "
+style = "bold dimmed red"
+format = "$symbol[${ram}( | ${swap})]($style) "
+
+[battery]
+disabled = true  # Non serve su VPS
+
+[localip]
+ssh_only = true
+format = '[$localipv4]($style) '
+style = "bold yellow"
+disabled = false
+
+#===============================================================================
+# CLOUD & KUBERNETES (Optional)
+#===============================================================================
+
+[kubernetes]
+symbol = "k8s "
+format = '[$symbol$context( \($namespace\))]($style) '
+style = "bold blue"
+disabled = true  # Abilitare se usi K8s
+
+[aws]
+symbol = " "
+format = '[$symbol($profile )(\($region\) )]($style)'
+style = "bold yellow"
+disabled = true  # Abilitare se usi AWS
+
+[gcloud]
+symbol = " "
+format = '[$symbol$account(@$domain)(\($region\))]($style) '
+style = "bold blue"
+disabled = true  # Abilitare se usi GCloud
+
+#===============================================================================
+# CUSTOM MODULES (Advanced)
+#===============================================================================
+
+# Custom module per mostrare numero container Docker running
+[custom.docker_running]
+command = "docker ps -q 2>/dev/null | wc -l | tr -d ' '"
+when = "command -v docker"
+symbol = " "
+style = "bold blue"
+format = "[$symbol$output]($style) "
+disabled = true  # Abilitare se utile
+
+# Custom module per load average
+[custom.load]
+command = "cat /proc/loadavg | awk '{print $1}'"
+when = "test -f /proc/loadavg"
+symbol = " "
+style = "bold yellow"
+format = "[$symbol$output]($style) "
+disabled = true  # Abilitare se utile
