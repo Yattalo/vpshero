@@ -1,0 +1,27 @@
+[Unit]
+Description=VPSHero Disk Emergency Cleanup
+Documentation=https://github.com/yourusername/vpshero
+Wants=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+
+# Script di cleanup
+ExecStart=/opt/scripts/disk-emergency-cleanup.sh
+
+# Logging
+StandardOutput=append:/var/log/disk-emergency-cleanup.log
+StandardError=append:/var/log/disk-emergency-cleanup.log
+
+# Security hardening
+PrivateTmp=true
+NoNewPrivileges=true
+
+# Timeout: massimo 5 minuti per il cleanup
+TimeoutStartSec=300
+
+[Install]
+WantedBy=multi-user.target

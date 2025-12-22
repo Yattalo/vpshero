@@ -1,0 +1,18 @@
+[Unit]
+Description=VPSHero Disk Emergency Cleanup Timer
+Documentation=https://github.com/yourusername/vpshero
+Requires=disk-emergency-cleanup.service
+
+[Timer]
+# Esegui ogni 30 minuti (bilanciamento tra reattività e carico sistema)
+# Per ambienti con molto CI/CD, considerare *:0/15
+OnCalendar=*:0/30
+
+# Esegui immediatamente al boot se il VPS era offline durante l'esecuzione schedulata
+Persistent=true
+
+# Randomizza esecuzione di ±2min per evitare spike di load se hai più VPS
+RandomizedDelaySec=120
+
+[Install]
+WantedBy=timers.target
