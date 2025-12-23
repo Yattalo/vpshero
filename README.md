@@ -2,18 +2,24 @@
 
 **Ecosistema VPS DevOps Avanzato con Claude Code come Cervello Centrale**
 
-Un setup completo per trasformare una VPS Ubuntu in un terminale iper-avanzato per deployment rapido, sicuro e automatizzato.
+Un toolkit completo per trasformare una VPS Ubuntu in un terminale iper-avanzato per deployment rapido, sicuro e automatizzato. Progettato sia come **strumento operativo** che come **risorsa di apprendimento** per DevOps.
 
-## Caratteristiche
+---
 
-- **Shell Avanzata**: Zsh + Oh My Zsh + Starship + strumenti CLI moderni
-- **Claude Code**: Configurato come cervello centrale con agenti, skills e comandi specializzati
-- **Dokploy**: Self-hosted PaaS per deployment containerizzati con zero-config
-- **CI/CD**: Integrazione GitHub CLI + webhook automatici
-- **Sicurezza**: Hardening SSH, firewall UFW, audit logging, protezione file critici
-- **Monitoring**: Status line DevOps, health checks, logging centralizzato
+## ✨ Caratteristiche
 
-## Quick Start
+| Area | Componenti |
+|------|------------|
+| 🤖 **Claude Code** | 4 agenti, 11 commands, 4 skills, 4 hooks |
+| 🚀 **Dokploy** | Self-hosted PaaS per deployment containerizzati |
+| 🔒 **Sicurezza** | UFW, Fail2ban, audit logging, protezione file critici |
+| 💻 **Shell Avanzata** | Zsh + Oh My Zsh + Starship + CLI tools moderni |
+| 📊 **Monitoring** | Disk safeguards automatici, health checks, alerting |
+| 📚 **Documentazione** | Indice completo, percorso apprendimento, reference |
+
+---
+
+## 🚀 Quick Start
 
 ### 1. Prepara la VPS
 
@@ -25,294 +31,383 @@ ssh root@<IP>
 adduser devops
 usermod -aG sudo devops
 
-# Disconnettiti e riconnettiti come devops
+# Riconnettiti come devops
 exit
 ssh devops@<IP>
 ```
 
-### 2. Clona il Repository
+### 2. Clona e Setup
 
 ```bash
-git clone https://github.com/tuouser/vpshero.git
+# Clone repository
+git clone https://github.com/Yattalo/vpshero.git
 cd vpshero
-```
 
-### 3. Esegui Setup
-
-```bash
+# Setup completo (seleziona opzione 1)
 chmod +x setup-vps.sh
 ./setup-vps.sh
 ```
 
-Seleziona opzione **1** per setup completo.
-
-### 4. Configura Claude Code
+### 3. Configura Claude Code
 
 ```bash
-# Copia configurazioni
-cp -r claude/* ~/.claude/
+# Copia configurazioni (nota: .claude, non claude)
+cp -r .claude/* ~/.claude/
 
 # Rendi eseguibili gli script
 chmod +x ~/.claude/hooks/*.sh
 chmod +x ~/.claude/statusline-vps.sh
 
-# Autentica Claude Code
+# Autentica
+gh auth login
 claude
 ```
 
-### 5. Configura GitHub CLI
+### 4. (Opzionale) Installa Disk Safeguards
 
 ```bash
-gh auth login
+cd scripts
+chmod +x setup-disk-safeguards.sh
+sudo ./setup-disk-safeguards.sh
 ```
 
-### 6. Accedi a Dokploy
+---
 
-Apri nel browser: `http://<IP-VPS>:3000`
-
-## Struttura del Progetto
+## 📁 Struttura del Progetto
 
 ```
 vpshero/
-├── setup-vps.sh              # Script di setup principale
-├── configs/
-│   ├── .zshrc                # Configurazione Zsh
-│   └── starship.toml         # Configurazione Starship prompt
-└── claude/
-    ├── settings.json         # Settings Claude Code (VPS)
-    ├── settings.local.json   # Template settings locali
-    ├── statusline-vps.sh     # Status line DevOps
-    ├── agents/               # Agenti specializzati
-    │   ├── devops-engineer.md
-    │   ├── security-auditor.md
-    │   ├── incident-responder.md
-    │   └── release-manager.md
-    ├── commands/             # Slash commands
-    │   ├── deploy.md
-    │   ├── rollback.md
-    │   ├── health.md
-    │   ├── logs.md
-    │   ├── dns.md
-    │   ├── pr.md
-    │   ├── workflow.md
-    │   ├── backup.md
-    │   └── dokploy.md
-    ├── skills/               # Skills complesse
-    │   ├── cicd-pipeline/
-    │   ├── docker-ops/
-    │   └── dns-management/
-    └── hooks/                # Automazione sicura
-        ├── session-init.sh
-        ├── audit-log.sh
-        ├── pre-deploy.sh
-        └── protect-critical.sh
+├── 📄 README.md                      # Questo file
+├── 📄 CLAUDE.md                      # Istruzioni per Claude Code
+├── 📜 setup-vps.sh                   # Script setup principale
+│
+├── 📁 .claude/                       # ← Configurazione Claude Code
+│   ├── settings.json                 # Permessi VPS
+│   ├── settings.local.json           # Permessi sviluppo locale
+│   ├── statusline-vps.sh             # Status bar DevOps
+│   │
+│   ├── agents/                       # 🤖 4 Agenti specializzati
+│   │   ├── devops-engineer.md        #    → Deploy, scaling
+│   │   ├── security-auditor.md       #    → Audit, vulnerabilità
+│   │   ├── incident-responder.md     #    → Troubleshooting rapido
+│   │   └── release-manager.md        #    → Versioning, release
+│   │
+│   ├── commands/                     # ⚡ 11 Slash commands
+│   │   ├── deploy.md                 #    → /deploy
+│   │   ├── rollback.md               #    → /rollback
+│   │   ├── health.md                 #    → /health
+│   │   ├── logs.md                   #    → /logs
+│   │   ├── dns.md                    #    → /dns
+│   │   ├── pr.md                     #    → /pr
+│   │   ├── workflow.md               #    → /workflow
+│   │   ├── backup.md                 #    → /backup
+│   │   ├── dokploy.md                #    → /dokploy
+│   │   ├── github-setup.md           #    → /github-setup ✨NEW
+│   │   └── disk-check.md             #    → /disk-check ✨NEW
+│   │
+│   ├── skills/                       # 📚 4 Skills complesse
+│   │   ├── docker-ops/               #    → Container management
+│   │   ├── cicd-pipeline/            #    → GitHub Actions, Dokploy
+│   │   ├── dns-management/           #    → DNS, SSL/TLS
+│   │   └── disk-safeguards/          #    → Prevenzione crash ✨NEW
+│   │
+│   └── hooks/                        # 🔒 4 Hooks automazione
+│       ├── session-init.sh           #    → Setup sessione
+│       ├── audit-log.sh              #    → Log operazioni
+│       ├── pre-deploy.sh             #    → Validazione pre-op
+│       └── protect-critical.sh       #    → Protezione file
+│
+├── 📁 scripts/                       # 📜 Script eseguibili ✨NEW
+│   ├── disk-emergency-cleanup.sh     #    → Cleanup automatico
+│   ├── docker-weekly-cleanup.sh      #    → Pulizia settimanale
+│   ├── setup-disk-safeguards.sh      #    → Installer safeguards
+│   └── verify-disk-safeguards.sh     #    → Verifica installazione
+│
+├── 📁 configs/                       # ⚙️ Configurazioni
+│   ├── starship.toml                 #    → Prompt Starship
+│   └── systemd/                      #    ✨NEW
+│       ├── disk-emergency-cleanup.service
+│       └── disk-emergency-cleanup.timer
+│
+└── 📁 docs/                          # 📖 Documentazione ✨NEW
+    ├── TOOLKIT-INDEX.md              #    → 📖 INDICE MASTER
+    ├── QUICK-REFERENCE.md
+    ├── DEPLOYMENT-WORKFLOW.md
+    ├── DISK-SAFEGUARDS.md
+    ├── DISK-SAFEGUARDS-QUICK-REFERENCE.md
+    ├── STRATEGIA-PREVENZIONE-CRASH.md
+    └── PROJECTS.md
 ```
 
-## Uso di Claude Code
+---
 
-### Slash Commands Disponibili
+## ⚡ Uso di Claude Code
 
-| Comando | Descrizione |
-|---------|-------------|
-| `/deploy <app> <env>` | Deploy applicazione |
-| `/rollback <app>` | Rollback a versione precedente |
-| `/health` | Health check del sistema |
-| `/logs <service>` | Visualizza logs |
-| `/dns <action> <domain>` | Gestione DNS e SSL |
-| `/pr <action>` | Gestione Pull Request |
-| `/workflow <action>` | Gestione GitHub Actions |
-| `/backup <action>` | Gestione backup |
-| `/dokploy <action>` | Gestione Dokploy |
+### Slash Commands
+
+| Comando | Descrizione | Model |
+|---------|-------------|-------|
+| `/deploy <app> <env>` | Deploy applicazione | sonnet |
+| `/rollback <app>` | Rollback versione | haiku |
+| `/health` | Health check sistema | haiku |
+| `/logs <service>` | Visualizza logs | haiku |
+| `/dns <action> <domain>` | Gestione DNS/SSL | sonnet |
+| `/pr <action>` | Pull Request | sonnet |
+| `/workflow <action>` | GitHub Actions | haiku |
+| `/backup <action>` | Gestione backup | sonnet |
+| `/dokploy <action>` | Gestione Dokploy | haiku |
+| `/github-setup` | Setup GitHub→Dokploy | sonnet |
+| `/disk-check` | Analisi spazio disco | haiku |
 
 ### Agenti Specializzati
 
 ```bash
 # DevOps Engineer - deployment e infrastruttura
-> Usa @devops-engineer per deployare l'app su production
+@devops-engineer deploya l'app su production
 
 # Security Auditor - vulnerabilità e compliance
-> Usa @security-auditor per fare un security scan
+@security-auditor fai un security scan del Dockerfile
 
 # Incident Responder - troubleshooting rapido
-> Usa @incident-responder per analizzare l'outage
+@incident-responder il sito è down, cosa faccio?
 
 # Release Manager - versioning e release
-> Usa @release-manager per preparare la release v2.0
+@release-manager prepara la release v2.0
 ```
 
 ### Skills
 
 Le skills si attivano automaticamente in base al contesto:
 
-- **cicd-pipeline**: Gestione pipeline CI/CD
-- **docker-ops**: Operazioni Docker avanzate
-- **dns-management**: Gestione DNS e SSL
+| Skill | Area | Documentazione |
+|-------|------|----------------|
+| `docker-ops` | Container, networking, volumes | Best practices Docker |
+| `cicd-pipeline` | GitHub Actions, auto-deploy | CI/CD patterns |
+| `dns-management` | DNS records, SSL/TLS | Let's Encrypt guide |
+| `disk-safeguards` | Prevenzione crash disco | Cleanup automatico |
 
-## Mix di Modelli
+---
 
-La configurazione usa un mix intelligente di modelli per ottimizzare costi e performance:
+## 🎓 Mix di Modelli (Cost Optimization)
 
-| Modello | Uso | Costo Relativo |
-|---------|-----|----------------|
-| **Haiku** | DevOps routine, health checks, logs | Basso |
-| **Sonnet** | Deploy, code review, troubleshooting | Medio |
-| **Opus** | Security audit, planning critico | Alto |
+| Modello | Uso | Costo |
+|---------|-----|-------|
+| **Haiku** | Routine: health, logs, status, disk-check | 💰 Basso |
+| **Sonnet** | Complesso: deploy, dns, pr, backup | 💰💰 Medio |
+| **Opus** | Critico: security audit | 💰💰💰 Alto |
 
-I modelli sono configurati automaticamente per ogni agente e comando.
+---
 
-## Sicurezza
+## 🔒 Sicurezza
 
 ### Hooks Automatici
 
-- **session-init.sh**: Log inizio sessione, setup ambiente
-- **audit-log.sh**: Logging di tutte le operazioni
-- **pre-deploy.sh**: Validazione prima di deploy
-- **protect-critical.sh**: Protezione file critici
+| Hook | Evento | Scopo |
+|------|--------|-------|
+| `session-init.sh` | SessionStart | Log sessione, setup |
+| `audit-log.sh` | PostToolUse | Log tutte le operazioni |
+| `pre-deploy.sh` | PreToolUse | Validazione pre-deploy |
+| `protect-critical.sh` | PreToolUse | Blocca modifica file critici |
 
 ### File Protetti
 
-I seguenti path sono automaticamente protetti:
 - `/etc/passwd`, `/etc/shadow`, `/etc/sudoers`
-- `/root/.ssh`, `/.ssh`
-- File con pattern: `*.pem`, `*.key`, `*secrets*`
+- `/root/.ssh`, `/.ssh`, `/etc/ssl/private`
+- `*.pem`, `*.key`, `*secrets*`, `*credentials*`
 
 ### Audit Log
 
-Tutte le operazioni sono loggate in:
-- `/var/log/claude-audit.log` - Log testuale
-- `/var/log/claude-audit.jsonl` - Log JSON strutturato
+```bash
+# Log testuale
+tail -f /var/log/claude-audit.log
 
-## Workflow Tipico
+# Log JSON strutturato
+tail -f /var/log/claude-audit.jsonl
+```
+
+---
+
+## 📊 Disk Safeguards (Protezione Disco)
+
+Sistema automatico multi-livello per prevenire crash VPS da spazio disco esaurito.
+
+### Caratteristiche
+
+- ✅ **Emergency cleanup** ogni 30 minuti (soglia 85%)
+- ✅ **Weekly cleanup** conservativo (domenica 3am)
+- ✅ **Protezione Dokploy** - NON elimina volumi database
+- ✅ **Alerting** via Telegram, Discord, Slack
+
+### Quick Setup
+
+```bash
+cd scripts
+sudo ./setup-disk-safeguards.sh
+
+# Configura notifiche (opzionale)
+sudo nano /etc/environment
+# TELEGRAM_BOT_TOKEN='your-token'
+# TELEGRAM_CHAT_ID='your-chat-id'
+```
+
+📖 Dettagli: [`docs/DISK-SAFEGUARDS.md`](docs/DISK-SAFEGUARDS.md)
+
+---
+
+## 📖 Documentazione
+
+| Documento | Descrizione |
+|-----------|-------------|
+| **[TOOLKIT-INDEX.md](docs/TOOLKIT-INDEX.md)** | 📖 **Indice master** - Inizia qui! |
+| [QUICK-REFERENCE.md](docs/QUICK-REFERENCE.md) | Comandi rapidi |
+| [DEPLOYMENT-WORKFLOW.md](docs/DEPLOYMENT-WORKFLOW.md) | Workflow deployment |
+| [DISK-SAFEGUARDS.md](docs/DISK-SAFEGUARDS.md) | Protezione disco |
+| [PROJECTS.md](docs/PROJECTS.md) | Progetti deployati |
+
+---
+
+## 🎯 Workflow Tipici
 
 ### Deploy di una Nuova App
 
 ```bash
-# 1. Crea app in Dokploy
-# Dashboard > Create Application > GitHub
+# 1. Setup GitHub (prima volta)
+/github-setup
 
-# 2. Configura webhook (automatico con GitHub)
-
-# 3. Deploy via Claude
-/deploy myapp production
-
-# 4. Verifica
+# 2. Verifica sistema
 /health
+
+# 3. Deploy su staging
+/deploy myapp staging
+
+# 4. Se OK, production
+/deploy myapp production
 ```
 
 ### Gestione Incidente
 
 ```bash
-# 1. Quick assessment
+# 1. Assessment rapido
 /health
 
 # 2. Logs del servizio
-/logs myapp
+/logs myapp 100
 
-# 3. Se necessario rollback
+# 3. Analisi con agente
+@incident-responder analizza l'outage di myapp
+
+# 4. Se necessario
 /rollback myapp
-
-# 4. Analisi con agente
-> @incident-responder analizza l'outage di myapp
 ```
 
-### Release
+### Manutenzione Disco
 
 ```bash
-# 1. Prepara release
-> @release-manager prepara release v1.2.0
+# 1. Check stato
+/disk-check
 
-# 2. Crea PR
-/pr create "Release v1.2.0"
+# 2. Cleanup manuale se necessario
+docker system prune -a -f
 
-# 3. Dopo merge, deploy automatico via webhook
+# 3. Automatizza (una volta)
+cd scripts && sudo ./setup-disk-safeguards.sh
 ```
 
-## Personalizzazione
+---
 
-### Aggiungere un Nuovo Comando
+## 💰 Costi Stimati
 
-Crea `~/.claude/commands/miocomando.md`:
+| Componente | Costo Mensile |
+|------------|---------------|
+| Hetzner VPS 8GB | ~15 EUR |
+| Claude API (mix modelli) | ~20-50 USD |
+| **Totale** | **~35-65 EUR/mese** |
+
+---
+
+## 🛠️ Personalizzazione
+
+### Aggiungere un Comando
 
 ```yaml
+# .claude/commands/miocomando.md
 ---
-description: Descrizione del comando
-argument-hint: <arg1> [arg2]
-allowed-tools: Bash(comando:*), Read
+description: Descrizione
+argument-hint: <arg1>
+allowed-tools: Bash(docker:*), Read
 model: haiku
 ---
 
 # Mio Comando: $1
 
-Esegui: !`comando $1`
-
-Istruzioni per Claude...
+Istruzioni...
 ```
 
-### Aggiungere un Nuovo Agente
-
-Crea `~/.claude/agents/mioagente.md`:
+### Aggiungere un Agente
 
 ```yaml
+# .claude/agents/mioagente.md
 ---
 name: mio-agente
-description: Descrizione dell'agente
+description: Descrizione
 tools: Read, Bash, Glob
 model: sonnet
 ---
 
 # Mio Agente
 
-Istruzioni per l'agente...
+Istruzioni...
 ```
 
-## Troubleshooting
+---
+
+## 🐛 Troubleshooting
 
 ### Claude Code non si connette
 
 ```bash
-# Verifica autenticazione
 claude --version
-claude  # Dovrebbe aprire browser per auth
+claude  # Riauthentication
 ```
 
 ### Dokploy non raggiungibile
 
 ```bash
-# Verifica container
 docker ps | grep dokploy
-
-# Restart se necessario
-cd /root/.dokploy && docker compose restart
-
-# Check logs
 docker logs dokploy-dokploy-1
+cd /root/.dokploy && docker compose restart
 ```
 
-### Hook non funziona
+### Hooks non funzionano
 
 ```bash
-# Verifica permessi
 ls -la ~/.claude/hooks/
-
-# Rendi eseguibile
 chmod +x ~/.claude/hooks/*.sh
-
-# Test manuale
-echo '{"tool_name": "Bash"}' | ~/.claude/hooks/audit-log.sh
 ```
 
-## Costi Stimati
+### Disco pieno
 
-| Componente | Costo Mensile |
-|------------|---------------|
-| Hetzner VPS 8GB | ~15 EUR |
-| Claude API (mix) | ~20-50 USD |
-| **Totale** | **~35-65 EUR/mese** |
+```bash
+/disk-check
+docker system prune -a -f --volumes
+```
 
-## Licenza
+---
+
+## 📄 Licenza
 
 MIT
 
-## Contributing
+---
+
+## 🤝 Contributing
 
 PR benvenute! Per modifiche significative, apri prima una issue.
+
+---
+
+## 📚 Risorse Correlate
+
+- [Claude Code Documentation](https://docs.anthropic.com/claude-code)
+- [Dokploy Documentation](https://docs.dokploy.com)
+- [GitHub Actions Documentation](https://docs.github.com/actions)
